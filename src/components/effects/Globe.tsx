@@ -33,9 +33,9 @@ export function Globe() {
       diffuse: 1.2,
       mapSamples: 16000,
       mapBrightness: 6,
-      baseColor: [0.5, 0.5, 0.5], // Lebih terang agar terlihat
+      baseColor: [1, 1, 1], // Putih agar dot peta terlihat jelas
       markerColor: [0.1, 0.8, 1], // Cyan
-      glowColor: [0.2, 0.4, 0.8], // Glow biru muda
+      glowColor: [1, 1, 1], // Glow putih bersinar
       markers: [
         { location: [-6.2088, 106.8456], size: 0.1 } // Jakarta
       ],
