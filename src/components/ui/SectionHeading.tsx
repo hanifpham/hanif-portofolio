@@ -6,6 +6,7 @@ interface SectionHeadingProps {
   description?: string
   className?: string
   align?: "left" | "center"
+  as?: "h1" | "h2"
 }
 
 export function SectionHeading({ 
@@ -13,7 +14,8 @@ export function SectionHeading({
   title, 
   description, 
   className,
-  align = "left" 
+  align = "left",
+  as: Component = "h2"
 }: SectionHeadingProps) {
   return (
     <div className={cn("flex flex-col gap-4", align === "center" && "items-center text-center", className)}>
@@ -22,9 +24,9 @@ export function SectionHeading({
           {eyebrow}
         </span>
       )}
-      <h2 className="text-[40px] md:text-5xl font-bold tracking-tight text-foreground leading-[1.1]">
+      <Component className="text-[40px] md:text-5xl font-bold tracking-tight text-foreground leading-[1.1]">
         {title}
-      </h2>
+      </Component>
       {description && (
         <p className="text-base md:text-lg text-foreground-secondary max-w-175 leading-[1.6]">
           {description}

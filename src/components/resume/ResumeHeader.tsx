@@ -7,7 +7,7 @@ export function ResumeHeader() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="pt-32 pb-8 md:pt-40 md:pb-12">
+    <section className="pt-4 pb-8 md:pt-8 md:pb-12">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}

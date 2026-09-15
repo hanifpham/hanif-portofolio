@@ -5,7 +5,7 @@ export function AboutIntro() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="pt-32 pb-16 md:pt-40 md:pb-16">
+    <section className="pt-4 pb-16 md:pt-8 md:pb-16">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
