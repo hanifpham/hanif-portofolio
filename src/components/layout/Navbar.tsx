@@ -70,6 +70,11 @@ export function Navbar() {
           {/* Logo */}
           <Link
             to="/"
+            onClick={() => {
+              if (location.pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" })
+              }
+            }}
             className="text-foreground font-bold tracking-widest text-sm hover:text-accent-blue transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-md px-1"
             aria-label="Hanif Home"
           >
@@ -84,6 +89,11 @@ export function Navbar() {
                 <Link
                   key={link.name}
                   to={link.path}
+                  onClick={() => {
+                    if (isActive) {
+                      window.scrollTo({ top: 0, behavior: "smooth" })
+                    }
+                  }}
                   className={cn(
                     "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue",
                     isActive
@@ -129,6 +139,12 @@ export function Navbar() {
                   <Link
                     key={link.name}
                     to={link.path}
+                    onClick={() => {
+                      if (isActive) {
+                        window.scrollTo({ top: 0, behavior: "smooth" })
+                      }
+                      setMobileMenuOpen(false)
+                    }}
                     className={cn(
                       "text-2xl font-semibold tracking-tight transition-colors w-full text-center py-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue",
                       isActive

@@ -136,15 +136,15 @@ export function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto"
           >
-            <Link
-              to="/projects"
+            <a
+              href="#selected-work"
               className={buttonVariants({
                 variant: "primary",
                 className: "h-12 px-8 text-sm md:text-base rounded-xl",
               })}
             >
-              View Projects
-            </Link>
+              View My Work
+            </a>
             <Link
               to="/about"
               className={buttonVariants({

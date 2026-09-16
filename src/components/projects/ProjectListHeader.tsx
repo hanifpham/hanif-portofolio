@@ -6,7 +6,7 @@ export function ProjectListHeader() {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section className="pt-4 pb-16 md:pt-8 md:pb-24">
+    <section className="pt-8 pb-12 md:pt-12 md:pb-16">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
@@ -14,9 +14,8 @@ export function ProjectListHeader() {
           transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <SectionHeading 
-            eyebrow="Selected Work"
-            title="Things I've built."
-            description="Beberapa hal yang saya bangun, dari aplikasi web dan mobile hingga sistem yang menggabungkan AI dan GIS."
+            eyebrow="PROJECTS"
+            title="Selected work, experiments, and things I've built along the way."
             as="h1"
           />
         </motion.div>
