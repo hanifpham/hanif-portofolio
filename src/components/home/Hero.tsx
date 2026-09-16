@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "motion/react";
 import type { Variants } from "motion/react";
-import { Mail } from "lucide-react";
-import { FaGithub, FaInstagram, FaTiktok, FaFacebookF } from "react-icons/fa";
 import { buttonVariants } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
+import { socialLinks } from "@/data/socials";
 import { RotatingText } from "./RotatingText";
 import { Globe } from "@/components/effects/Globe";
 
@@ -52,59 +51,23 @@ export function Hero() {
         >
           {/* Social Icons */}
           <motion.div variants={itemVariants} className="flex gap-4 mb-8">
-            <motion.a
-              whileHover={hoverAnim}
-              whileTap={tapAnim}
-              href="https://github.com/#"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
-            >
-              <FaGithub size={22} />
-            </motion.a>
-            <motion.a
-              whileHover={hoverAnim}
-              whileTap={tapAnim}
-              href="https://instagram.com/#"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Instagram"
-              className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
-            >
-              <FaInstagram size={22} />
-            </motion.a>
-            <motion.a
-              whileHover={hoverAnim}
-              whileTap={tapAnim}
-              href="https://tiktok.com/#"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="TikTok"
-              className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
-            >
-              <FaTiktok size={20} />
-            </motion.a>
-            <motion.a
-              whileHover={hoverAnim}
-              whileTap={tapAnim}
-              href="https://facebook.com/#"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Facebook"
-              className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
-            >
-              <FaFacebookF size={20} />
-            </motion.a>
-            <motion.a
-              whileHover={hoverAnim}
-              whileTap={tapAnim}
-              href="mailto:hello@example.com"
-              aria-label="Email"
-              className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
-            >
-              <Mail size={22} />
-            </motion.a>
+            {socialLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <motion.a
+                  key={link.name}
+                  whileHover={hoverAnim}
+                  whileTap={tapAnim}
+                  href={link.href}
+                  target={link.name === 'Email' ? undefined : "_blank"}
+                  rel={link.name === 'Email' ? undefined : "noreferrer"}
+                  aria-label={link.name}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
+                >
+                  <Icon size={link.name === 'TikTok' || link.name === 'X' ? 20 : 22} />
+                </motion.a>
+              );
+            })}
           </motion.div>
 
           {/* Heading (H1) */}

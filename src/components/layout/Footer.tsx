@@ -1,16 +1,7 @@
 import { Link } from "react-router-dom"
 import { motion } from "motion/react"
-import { Mail } from "lucide-react"
-import { FaGithub, FaInstagram, FaTiktok, FaFacebookF } from "react-icons/fa"
+import { socialLinks } from "@/data/socials"
 import { Container } from "./Container"
-
-const SOCIAL_LINKS = [
-  { name: "GitHub", href: "https://github.com/#", icon: FaGithub },
-  { name: "Instagram", href: "https://instagram.com/#", icon: FaInstagram },
-  { name: "TikTok", href: "https://tiktok.com/#", icon: FaTiktok },
-  { name: "Facebook", href: "https://facebook.com/#", icon: FaFacebookF },
-  { name: "Email", href: "mailto:hello@example.com", icon: Mail },
-]
 
 export function Footer() {
   return (
@@ -21,9 +12,9 @@ export function Footer() {
         <div className="flex flex-col gap-4 max-w-sm">
           <Link 
             to="/" 
-            className="text-foreground font-bold tracking-widest text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-md px-1 -ml-1"
+            className="flex items-center hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-md px-1 -ml-1"
           >
-            HANIF.
+            <img src="/images/brand/hanif-logo.svg" alt="HANIF." className="h-7 w-auto" />
           </Link>
           <p className="text-foreground-secondary text-sm md:text-base leading-relaxed">
             Membangun sesuatu yang berguna dengan teknologi.
@@ -34,7 +25,7 @@ export function Footer() {
         <div className="flex flex-col items-start md:items-end gap-8 md:gap-4">
           
           <div className="flex flex-wrap items-center gap-4">
-            {SOCIAL_LINKS.map((link) => {
+            {socialLinks.map((link) => {
               const Icon = link.icon
               return (
                 <motion.a
@@ -42,8 +33,8 @@ export function Footer() {
                   whileHover={{ scale: 1.15, y: -4 }}
                   whileTap={{ scale: 0.95 }}
                   href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={link.name === 'Email' ? undefined : "_blank"}
+                  rel={link.name === 'Email' ? undefined : "noopener noreferrer"}
                   aria-label={link.name}
                   className="w-12 h-12 rounded-xl flex items-center justify-center bg-surface-elevated/30 border border-border/50 text-foreground hover:text-accent-blue transition-colors backdrop-blur-sm"
                 >

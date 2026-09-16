@@ -16,7 +16,8 @@ import { Footer } from "@/components/layout/Footer";
 import { AuroraBackground } from "@/components/effects/AuroraBackground";
 import { GrainOverlay } from "@/components/effects/GrainOverlay";
 import { PageTransition } from "@/components/layout/PageTransition";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { LoadingScreen } from "@/components/effects/LoadingScreen";
 
 function ScrollToTop() {
   const location = useLocation();
@@ -97,9 +98,22 @@ function AnimatedRoutes() {
 }
 
 function App() {
+  const [isAppReady, setIsAppReady] = useState(false);
+
+  useEffect(() => {
+    if (!isAppReady) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isAppReady]);
+
   return (
     <Router>
       <ScrollToTop />
+      
+      {!isAppReady && <LoadingScreen onComplete={() => setIsAppReady(true)} />}
+
       <div className="relative min-h-screen flex flex-col selection:bg-accent-blue selection:text-background">
         <GrainOverlay />
         <AuroraBackground />

@@ -22,8 +22,8 @@ export function ContactCTA() {
             Punya ide, proyek, atau peluang menarik? Mari berdiskusi tentang bagaimana 
             kita bisa bekerja sama.
           </p>
-          <a href="mailto:hello@example.com" className={buttonVariants({ variant: "primary", className: "h-14 px-10 text-lg mt-4" })}>
-            Let's Connect &rarr;
+          <a href="mailto:hanifkholilulloh03@gmail.com" className={buttonVariants({ variant: "primary", className: "h-14 px-10 text-lg mt-4" })}>
+            Get in Touch &rarr;
           </a>
         </motion.div>
       </Container>

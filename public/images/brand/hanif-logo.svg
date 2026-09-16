@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 220" role="img" aria-labelledby="title desc">
+  <title id="title">HANIF.</title>
+  <desc id="desc">HANIF. wordmark paired with the geometric H mark.</desc>
+  <defs>
+    <linearGradient id="left" x1="0" y1="0" x2=".85" y2="1">
+      <stop offset="0" stop-color="#9B6BFF"/><stop offset=".55" stop-color="#7545F4"/><stop offset="1" stop-color="#5B8CFF"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7EA5FF"/><stop offset=".55" stop-color="#5B8CFF"/><stop offset="1" stop-color="#4B75E8"/>
+    </linearGradient>
+    <linearGradient id="bridge" x1="0" y1="0" x2="1" y2=".8">
+      <stop offset="0" stop-color="#6841D8"/><stop offset=".52" stop-color="#7249E8"/><stop offset="1" stop-color="#557FF2"/>
+    </linearGradient>
+    <linearGradient id="facet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#B487FF" stop-opacity=".9"/><stop offset="1" stop-color="#6A8FFF" stop-opacity=".15"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g transform="translate(18,18) scale(.56)" filter="url(#glow)">
+    <polygon points="55,32 116,74 116,288 55,246" fill="url(#left)"/>
+    <polygon points="116,74 145,94 145,307 116,288" fill="url(#facet)" opacity=".72"/>
+    <polygon points="204,74 265,32 265,246 204,288" fill="url(#right)"/>
+    <polygon points="175,94 204,74 204,288 175,307" fill="url(#facet)" opacity=".5"/>
+    <polygon points="116,128 204,188 204,244 116,184" fill="url(#bridge)"/>
+    <polygon points="55,32 116,74 116,106 55,64" fill="#A274FF" opacity=".28"/>
+    <polygon points="204,74 265,32 265,64 204,106" fill="#86AAFF" opacity=".24"/>
+  </g>
+  <text x="225" y="145"
+        font-family="Manrope, Inter, Avenir Next, Helvetica Neue, Arial, sans-serif"
+        font-size="96"
+        font-weight="800"
+        letter-spacing="-3"
+        fill="#F5F5F7">HANIF<tspan fill="#8B5CF6">.</tspan></text>
+</svg>

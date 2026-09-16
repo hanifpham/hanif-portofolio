@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">HANIF. favicon</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9B6BFF"/><stop offset=".5" stop-color="#7545F4"/><stop offset="1" stop-color="#5B8CFF"/>
+    </linearGradient>
+    <filter id="f" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#050507"/>
+  <g transform="translate(7,7) scale(.16)" filter="url(#f)">
+    <polygon points="55,32 116,74 116,288 55,246" fill="url(#g)"/>
+    <polygon points="116,74 145,94 145,307 116,288" fill="#7892FF" opacity=".58"/>
+    <polygon points="204,74 265,32 265,246 204,288" fill="url(#g)"/>
+    <polygon points="175,94 204,74 204,288 175,307" fill="#8C77FF" opacity=".42"/>
+    <polygon points="116,128 204,188 204,244 116,184" fill="url(#g)"/>
+  </g>
+</svg>
