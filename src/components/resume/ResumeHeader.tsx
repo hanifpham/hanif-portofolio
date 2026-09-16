@@ -22,8 +22,8 @@ export function ResumeHeader() {
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
               My Resume
             </h1>
-            <p className="text-lg text-foreground-secondary">
-              Berikut CV saya dalam format PDF.
+            <p className="text-lg text-foreground-secondary max-w-xl">
+              My professional background, experience, education, and skills.
             </p>
           </div>
 
@@ -32,7 +32,7 @@ export function ResumeHeader() {
               href="/resume.pdf" 
               target="_blank" 
               rel="noreferrer"
-              className={buttonVariants({ variant: "secondary", className: "h-12 px-6 gap-2 w-full sm:w-auto justify-center" })}
+              className={buttonVariants({ variant: "primary", className: "h-12 px-6 gap-2 w-full sm:w-auto justify-center" })}
             >
               <ExternalLink size={18} />
               Open in New Tab
@@ -40,7 +40,7 @@ export function ResumeHeader() {
             <a 
               href="/resume.pdf" 
               download="Hanif_Resume.pdf"
-              className={buttonVariants({ variant: "primary", className: "h-12 px-6 gap-2 w-full sm:w-auto justify-center" })}
+              className={buttonVariants({ variant: "secondary", className: "h-12 px-6 gap-2 w-full sm:w-auto justify-center" })}
             >
               <Download size={18} />
               Download Resume
