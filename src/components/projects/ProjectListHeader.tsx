@@ -15,7 +15,7 @@ export function ProjectListHeader() {
         >
           <SectionHeading 
             eyebrow="PROJECTS"
-            title="Selected work, experiments, and things I've built along the way."
+            title="Selected work and things I’ve built."
             as="h1"
           />
         </motion.div>

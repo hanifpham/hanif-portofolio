@@ -24,7 +24,6 @@
 
   --font-sans: 'Manrope', sans-serif;
   
-  --background-image-accent-gradient: linear-gradient(135deg, var(--color-accent-blue), var(--color-accent-violet));
 }
 
 @layer base {

@@ -20,8 +20,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           className="max-w-3xl mx-auto flex flex-col gap-16 md:gap-24"
         >
           {project.overview && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">Overview</h2>
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">Overview</h2>
               <div className="text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-4 whitespace-pre-wrap">
                 {project.overview}
               </div>
@@ -29,8 +29,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           )}
 
           {project.problem && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">The Problem</h2>
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">The Problem</h2>
               <div className="text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-4 whitespace-pre-wrap">
                 {project.problem}
               </div>
@@ -38,8 +38,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           )}
 
           {project.solution && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">The Solution</h2>
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">The Solution</h2>
               <div className="text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-4 whitespace-pre-wrap">
                 {project.solution}
               </div>
@@ -47,8 +47,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           )}
           
           {project.role && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">My Role</h2>
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">My Role</h2>
               <div className="text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-4 whitespace-pre-wrap">
                 {project.role}
               </div>
@@ -56,9 +56,9 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           )}
 
           {project.challenges && project.challenges.length > 0 && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">Key Challenges</h2>
-              <ul className="list-disc list-outside ml-6 text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-3">
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">Key Challenges</h2>
+              <ul className="list-disc list-outside ml-6 md:ml-4 text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-3">
                 {project.challenges.map((challenge, index) => (
                   <li key={index} className="pl-2">{challenge}</li>
                 ))}
@@ -67,8 +67,8 @@ export function ProjectDetailContent({ project }: ProjectDetailContentProps) {
           )}
 
           {project.result && (
-            <div className="flex flex-col gap-6">
-              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">The Result</h2>
+            <div className="flex flex-col md:grid md:grid-cols-[1fr_3fr] gap-4 md:gap-12">
+              <h2 className="text-sm font-semibold tracking-widest text-foreground-muted uppercase md:pt-1.5">The Result</h2>
               <div className="text-lg md:text-xl text-foreground-secondary leading-relaxed space-y-4 whitespace-pre-wrap">
                 {project.result}
               </div>

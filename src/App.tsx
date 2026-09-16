@@ -10,6 +10,7 @@ import Projects from "@/pages/Projects";
 import ProjectDetail from "@/pages/ProjectDetail";
 import About from "@/pages/About";
 import Resume from "@/pages/Resume";
+import NotFound from "@/pages/NotFound";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { AuroraBackground } from "@/components/effects/AuroraBackground";
@@ -79,6 +80,14 @@ function AnimatedRoutes() {
           element={
             <PageTransition>
               <Resume />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <PageTransition>
+              <NotFound />
             </PageTransition>
           }
         />

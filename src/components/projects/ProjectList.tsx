@@ -25,8 +25,8 @@ const TechItem = ({ tech }: { tech: string }) => {
   }
   
   return (
-    <span className="flex items-center gap-1.5 text-sm font-medium text-foreground-secondary">
-      {getIcon(tech)} {tech}
+    <span className="inline-flex items-center gap-1.5 text-sm text-foreground-muted">
+      {getIcon(tech)} <span>{tech}</span>
     </span>
   )
 }
@@ -62,28 +62,28 @@ export function ProjectList({ projects }: ProjectListProps) {
         >
           <Link 
             to={`/projects/${featured.slug}`}
-            className="group flex flex-col gap-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-xl"
+            className="group flex flex-col lg:grid lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-xl items-start"
           >
-            <div className="w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden bg-surface-elevated/20 border border-border/50 flex items-center justify-center p-4 lg:p-8 transition-colors duration-500 group-hover:border-border group-hover:bg-surface-elevated/40">
+            <div className="w-full aspect-4/3 md:aspect-video lg:aspect-auto lg:h-100 rounded-2xl overflow-hidden bg-surface/50 border border-border/40 flex items-center justify-center p-4 lg:p-8 transition-colors duration-500 group-hover:border-border/80 group-hover:bg-surface-elevated/40">
               {featured.image ? (
                 <img 
                   src={featured.image} 
                   alt={featured.title} 
                   loading="lazy"
-                  className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+                  className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 />
               ) : (
                 <ProjectVisualPlaceholder project={featured} featured />
               )}
             </div>
             
-            <div className="flex flex-col gap-6 lg:w-3/4">
+            <div className="flex flex-col gap-6 lg:py-8">
               <div className="flex flex-col gap-3">
-                <span className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">01 / Featured</span>
+                <span className="text-xs font-medium tracking-widest text-foreground-muted uppercase">Featured Project</span>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground flex items-center gap-3">
+                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground flex items-center gap-3">
                     {featured.title}
-                    <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8 text-foreground-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent-blue" />
+                    <ArrowUpRight className="w-6 h-6 md:w-8 md:h-8 text-foreground-muted transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent-blue" />
                   </h3>
                 </div>
               </div>
@@ -92,9 +92,14 @@ export function ProjectList({ projects }: ProjectListProps) {
                 {featured.description}
               </p>
               
-              <div className="flex flex-wrap gap-x-6 gap-y-3 pt-2">
-                {featured.technologies?.map(tech => (
-                  <TechItem key={tech} tech={tech} />
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                {featured.technologies?.map((tech, i) => (
+                  <div key={tech} className="flex items-center gap-4">
+                    <TechItem tech={tech} />
+                    {i < featured.technologies!.length - 1 && (
+                      <span className="text-foreground-muted/30 text-xs">·</span>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
@@ -117,25 +122,24 @@ export function ProjectList({ projects }: ProjectListProps) {
                 to={`/projects/${project.slug}`}
                 className="group flex flex-col gap-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue rounded-xl h-full"
               >
-                <div className="w-full aspect-video rounded-2xl overflow-hidden bg-surface-elevated/20 border border-border/50 flex items-center justify-center p-4 lg:p-8 transition-colors duration-500 group-hover:border-border group-hover:bg-surface-elevated/40">
+                <div className="w-full aspect-4/3 rounded-2xl overflow-hidden bg-surface/50 border border-border/40 flex items-center justify-center p-4 lg:p-8 transition-colors duration-500 group-hover:border-border/80 group-hover:bg-surface-elevated/40">
                   {project.image ? (
                     <img 
                       src={project.image} 
                       alt={project.title} 
                       loading="lazy"
-                      className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+                      className="w-full h-full object-contain transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                     />
                   ) : (
                     <ProjectVisualPlaceholder project={project} />
                   )}
                 </div>
                 
-                <div className="flex flex-col gap-4 flex-1">
+                <div className="flex flex-col gap-4 flex-1 pt-2">
                   <div className="flex flex-col gap-2">
-                    <span className="text-sm font-semibold tracking-widest text-foreground-muted uppercase">0{index + 2}</span>
-                    <h3 className="text-2xl font-bold tracking-tight text-foreground flex items-center gap-2">
+                    <h3 className="text-2xl font-bold tracking-tight text-foreground flex items-center justify-between">
                       {project.title}
-                      <ArrowUpRight className="w-5 h-5 text-foreground-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent-blue" />
+                      <ArrowUpRight className="w-5 h-5 text-foreground-muted transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-accent-blue" />
                     </h3>
                   </div>
                   
@@ -143,9 +147,14 @@ export function ProjectList({ projects }: ProjectListProps) {
                     {project.description}
                   </p>
                   
-                  <div className="flex flex-wrap gap-x-5 gap-y-2 pt-1 mt-auto">
-                    {project.technologies?.map(tech => (
-                      <TechItem key={tech} tech={tech} />
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-2 mt-auto">
+                    {project.technologies?.map((tech, i) => (
+                      <div key={tech} className="flex items-center gap-3">
+                        <TechItem tech={tech} />
+                        {i < project.technologies!.length - 1 && (
+                          <span className="text-foreground-muted/30 text-xs">·</span>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>

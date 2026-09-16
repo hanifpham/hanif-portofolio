@@ -26,8 +26,8 @@ const TechItem = ({ tech }: { tech: string }) => {
   }
   
   return (
-    <span className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-surface-elevated/30 border border-border/50 text-sm font-medium text-foreground-secondary">
-      {getIcon(tech)} {tech}
+    <span className="flex items-center gap-1.5 text-sm text-foreground-muted">
+      {getIcon(tech)} <span>{tech}</span>
     </span>
   )
 }
@@ -88,9 +88,14 @@ export function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
 
             {/* Technology Stack */}
             {project.technologies && project.technologies.length > 0 && (
-              <div className="flex flex-wrap gap-3 pt-2">
-                {project.technologies.map(tech => (
-                  <TechItem key={tech} tech={tech} />
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+                {project.technologies.map((tech, i) => (
+                  <div key={tech} className="flex items-center gap-4">
+                    <TechItem tech={tech} />
+                    {i < project.technologies!.length - 1 && (
+                      <span className="text-foreground-muted/30 text-xs">·</span>
+                    )}
+                  </div>
                 ))}
               </div>
             )}
@@ -123,16 +128,18 @@ export function ProjectDetailHero({ project }: ProjectDetailHeroProps) {
           </div>
 
           {/* Large Screenshot */}
-          <div className="w-full aspect-video md:aspect-video lg:aspect-21/9 rounded-2xl overflow-hidden bg-surface-elevated/20 border border-border/50 flex items-center justify-center p-4 md:p-8 lg:p-12">
+          <div className="w-full rounded-2xl overflow-hidden bg-surface/30 border border-border/40 p-2 md:p-4 lg:p-6 flex items-center justify-center">
             {project.image ? (
               <img 
                 src={project.image} 
                 alt={`${project.title} screenshot`}
                 loading="lazy"
-                className="w-full h-full object-contain"
+                className="w-full h-auto object-contain rounded-xl"
               />
             ) : (
-              <ProjectVisualPlaceholder project={project} featured />
+              <div className="w-full aspect-video">
+                <ProjectVisualPlaceholder project={project} featured />
+              </div>
             )}
           </div>
         </motion.div>
