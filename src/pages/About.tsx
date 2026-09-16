@@ -1,9 +1,8 @@
 import { AboutIntro } from "@/components/about/AboutIntro"
 import { Philosophy } from "@/components/about/Philosophy"
 import { WhatIDo } from "@/components/about/WhatIDo"
+import { TechStack } from "@/components/about/FullTechStack"
 import { CurrentlyExploring } from "@/components/about/CurrentlyExploring"
-import { FullTechStack } from "@/components/about/FullTechStack"
-import { Journey } from "@/components/about/Journey"
 import { KpopSection } from "@/components/about/KpopSection"
 import { MusicSection } from "@/components/about/MusicSection"
 import { ContactCTA } from "@/components/home/ContactCTA"
@@ -14,9 +13,8 @@ export default function About() {
       <AboutIntro />
       <Philosophy />
       <WhatIDo />
-      <FullTechStack />
+      <TechStack />
       <CurrentlyExploring />
-      <Journey />
       
       {/* 
         The personal sections transition starts here.

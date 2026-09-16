@@ -5,62 +5,84 @@ import { music } from "@/data/music"
 export function MusicSection() {
   const shouldReduceMotion = useReducedMotion()
 
-  if (!music || music.length === 0) return null
+  // Helper to extract Spotify ID from URL or URI
+  const getSpotifyIframeUrl = (urlOrUri: string) => {
+    // If it's already an embed URL, return it
+    if (urlOrUri.includes('spotify.com/embed')) return urlOrUri;
+    
+    // Extract ID from standard URL (https://open.spotify.com/track/12345)
+    const urlMatch = urlOrUri.match(/spotify\.com\/(track|album|playlist)\/([a-zA-Z0-9]+)/);
+    if (urlMatch) {
+      return `https://open.spotify.com/embed/${urlMatch[1]}/${urlMatch[2]}?utm_source=generator`;
+    }
+    
+    // Extract from URI (spotify:track:12345)
+    const uriMatch = urlOrUri.match(/spotify:(track|album|playlist):([a-zA-Z0-9]+)/);
+    if (uriMatch) {
+      return `https://open.spotify.com/embed/${uriMatch[1]}/${uriMatch[2]}?utm_source=generator`;
+    }
+    
+    return urlOrUri; // Fallback
+  }
 
   return (
-    <section className="pt-12 pb-32 md:pb-48 bg-surface-elevated/10">
+    <section className="pb-32 md:pb-48 bg-surface-elevated/10">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col gap-16 max-w-4xl mx-auto md:mx-0"
+          className="flex flex-col gap-12 md:gap-16"
         >
-          <div className="flex flex-col gap-4">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
-              What I'm listening to
-            </h2>
-          </div>
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 lg:gap-16 items-start pt-8 border-t border-border/20">
+            {/* Label Column */}
+            <div className="w-full lg:w-48 shrink-0 lg:pt-1">
+              <h3 className="text-sm font-semibold tracking-widest text-accent-blue uppercase">
+                2. Music
+              </h3>
+            </div>
 
-          <div className="flex flex-col">
-            {music.length > 0 ? (
-              <div className="flex flex-col gap-2">
-                {music.map((track, index) => (
-                  <div 
-                    key={track.id} 
-                    className="group flex flex-row items-center gap-6 p-4 rounded-xl hover:bg-surface transition-colors"
-                  >
-                    <span className="text-sm font-medium text-foreground-muted w-6 text-right">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    
-                    {track.cover ? (
-                      <div className="w-12 h-12 rounded bg-surface-elevated overflow-hidden shrink-0">
-                        <img src={track.cover} alt={`${track.title} cover`} className="w-full h-full object-cover" loading="lazy" />
-                      </div>
-                    ) : (
-                      <div className="w-12 h-12 rounded bg-surface border border-border shrink-0 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-foreground-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                        </svg>
-                      </div>
-                    )}
-                    
-                    <div className="flex flex-col gap-1 overflow-hidden">
-                      <h4 className="text-base font-bold text-foreground truncate">{track.title}</h4>
-                      <span className="text-sm text-foreground-secondary truncate">{track.artist}</span>
-                    </div>
+            {/* Content Column */}
+            <div className="flex-1 flex flex-col gap-8 md:gap-10 w-full">
+              <p className="text-xl md:text-2xl text-foreground-secondary leading-relaxed max-w-2xl">
+                Music is one of the things that keeps me company outside the world of coding.
+              </p>
+
+              <div className="w-full max-w-4xl">
+                {music && music.length > 0 ? (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {music.map((track, i) => (
+                      <motion.div 
+                        key={track.id} 
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: shouldReduceMotion ? 0 : i * 0.1 }}
+                        className="w-full rounded-2xl overflow-hidden bg-surface shadow-sm border border-border/50 hover:border-accent-blue/40 transition-colors duration-300 group hover:shadow-[0_8px_30px_rgba(var(--accent-blue-rgb),0.05)]"
+                      >
+                        <iframe 
+                          src={getSpotifyIframeUrl(track.spotifyUrl)} 
+                          width="100%" 
+                          height="152" 
+                          frameBorder="0" 
+                          allowFullScreen={false} 
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                          loading="lazy"
+                          className="rounded-2xl transition-transform duration-500 group-hover:scale-[1.02]"
+                        ></iframe>
+                      </motion.div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <div className="p-8 md:p-12 rounded-2xl border border-dashed border-border/50 bg-surface-elevated/10 text-center">
+                    <p className="text-foreground-secondary italic">
+                      Belum ada lagu yang ditambahkan. Data lagu dari Spotify akan ditampilkan di sini.
+                    </p>
+                  </div>
+                )}
               </div>
-            ) : (
-              <div className="p-8 md:p-12 rounded-2xl border border-dashed border-border bg-surface-elevated/30 text-center">
-                <p className="text-foreground-secondary italic">
-                  Daftar putar sedang kosong. Entri musik harian akan ditampilkan di sini.
-                </p>
-              </div>
-            )}
+            </div>
           </div>
         </motion.div>
       </Container>

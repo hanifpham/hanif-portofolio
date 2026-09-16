@@ -6,25 +6,25 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   SiReact,
   SiLaravel,
-  SiFlutter,
-  SiGo,
   SiTailwindcss,
-  SiGit,
-  SiFigma,
+  SiHtml5,
+  SiPhp,
+  SiMysql,
+  SiCss,
 } from "react-icons/si";
 
 const CURATED_TECH = [
-  { name: "React", icon: SiReact, color: "group-hover:text-[#61DAFB]" },
+  { name: "HTML", icon: SiHtml5, color: "group-hover:text-[#E34F26]" },
+  { name: "CSS", icon: SiCss, color: "group-hover:text-[#1572B6]" },
+  { name: "PHP", icon: SiPhp, color: "group-hover:text-[#777BB4]" },
+  { name: "MySQL", icon: SiMysql, color: "group-hover:text-[#4479A1]" },
   { name: "Laravel", icon: SiLaravel, color: "group-hover:text-[#FF2D20]" },
-  { name: "Flutter", icon: SiFlutter, color: "group-hover:text-[#02569B]" },
-  { name: "Go", icon: SiGo, color: "group-hover:text-[#00ADD8]" },
+  { name: "React", icon: SiReact, color: "group-hover:text-[#61DAFB]" },
   {
     name: "Tailwind CSS",
     icon: SiTailwindcss,
     color: "group-hover:text-[#06B6D4]",
   },
-  { name: "Git", icon: SiGit, color: "group-hover:text-[#F05032]" },
-  { name: "Figma", icon: SiFigma, color: "group-hover:text-[#F24E1E]" },
 ];
 
 export function TechStack() {
@@ -58,31 +58,46 @@ export function TechStack() {
         </motion.div>
 
         <div className="mt-16 overflow-hidden">
-          {/* Subtle animated row of technologies */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="flex flex-wrap gap-4 md:gap-6"
-          >
-            {CURATED_TECH.map((tech) => {
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {CURATED_TECH.map((tech, i) => {
               const Icon = tech.icon;
               return (
-                <div
+                <motion.div
                   key={tech.name}
-                  className="group flex items-center gap-3 px-5 py-3 md:px-6 md:py-4 rounded-xl bg-surface-elevated/30 border border-border/50 hover:border-border transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.03)] hover:-translate-y-1"
+                  initial={{
+                    opacity: 0,
+                    scale: shouldReduceMotion ? 1 : 0.9,
+                    y: shouldReduceMotion ? 0 : 10,
+                  }}
+                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    damping: 15,
+                    delay: shouldReduceMotion ? 0 : i * 0.05,
+                  }}
+                  whileHover={{
+                    scale: 1.05,
+                    rotate: [-1, 1, -1, 0],
+                    transition: { duration: 0.3 },
+                  }}
+                  className="group flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl bg-surface-elevated/10 hover:bg-surface-elevated/40 border border-transparent hover:border-border/50 transition-colors duration-300 cursor-default"
                 >
-                  <Icon
-                    className={`w-5 h-5 md:w-6 md:h-6 text-foreground-muted transition-colors duration-300 ${tech.color}`}
-                  />
-                  <span className="text-sm md:text-base font-medium text-foreground-secondary group-hover:text-foreground transition-colors duration-300">
+                  <div
+                    className={`w-10 h-10 md:w-12 md:h-12 shrink-0 rounded-lg bg-surface-elevated flex items-center justify-center border border-border/50 group-hover:border-border/80 transition-all duration-300 group-hover:shadow-md`}
+                  >
+                    <Icon
+                      className={`w-5 h-5 md:w-6 md:h-6 text-foreground-muted transition-colors duration-300 ${tech.color}`}
+                    />
+                  </div>
+                  <span className="text-sm md:text-base font-semibold text-foreground-secondary group-hover:text-foreground transition-colors duration-300">
                     {tech.name}
                   </span>
-                </div>
+                </motion.div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>
