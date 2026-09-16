@@ -9,10 +9,12 @@ export interface KpopInterest {
 export const kpopInterests: KpopInterest[] = [
   {
     id: "newjeans",
-    name: "NewJeans"
+    name: "NewJeans",
+    image: "/images/about/kpop/newjeans.jpg",
   },
   {
     id: "hearts2hearts",
-    name: "Hearts2Hearts"
-  }
+    name: "Hearts2Hearts",
+    image: "/images/about/kpop/hearts2hearts.jpg",
+  },
 ];

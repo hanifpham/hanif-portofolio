@@ -8,7 +8,7 @@ export function CurrentlyExploring() {
     "AI Integration",
     "Mobile Development",
     "Design Systems",
-    "Web Animations"
+    "Machine Learning"
   ]
 
   return (

@@ -11,11 +11,17 @@ import {
   SiPhp,
   SiMysql,
   SiCss,
+  SiJavascript,
 } from "react-icons/si";
 
 const CURATED_TECH = [
   { name: "HTML", icon: SiHtml5, color: "group-hover:text-[#E34F26]" },
   { name: "CSS", icon: SiCss, color: "group-hover:text-[#1572B6]" },
+  {
+    name: "JavaScript",
+    icon: SiJavascript,
+    color: "group-hover:text-[#F7DF1E]",
+  },
   { name: "PHP", icon: SiPhp, color: "group-hover:text-[#777BB4]" },
   { name: "MySQL", icon: SiMysql, color: "group-hover:text-[#4479A1]" },
   { name: "Laravel", icon: SiLaravel, color: "group-hover:text-[#FF2D20]" },
