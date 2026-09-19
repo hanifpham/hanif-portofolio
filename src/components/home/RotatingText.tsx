@@ -24,14 +24,14 @@ export function RotatingText() {
 
   if (shouldReduceMotion) {
     return (
-      <div className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground whitespace-nowrap">
+      <div className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground w-full max-w-full whitespace-normal sm:whitespace-nowrap wrap-break-word">
         {phrases[0]}
       </div>
     )
   }
 
   return (
-    <div className="relative h-12 md:h-16 lg:h-24 w-full block">
+    <div className="relative h-16 sm:h-12 md:h-16 lg:h-24 w-full block">
       <AnimatePresence>
         <motion.div
           key={index}
@@ -39,9 +39,9 @@ export function RotatingText() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-center justify-start"
+          className="absolute inset-0 flex items-start sm:items-center justify-start w-full"
         >
-          <div className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground whitespace-nowrap">
+          <div className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight text-foreground w-full max-w-full whitespace-normal sm:whitespace-nowrap wrap-break-word">
             {phrases[index]}
           </div>
         </motion.div>

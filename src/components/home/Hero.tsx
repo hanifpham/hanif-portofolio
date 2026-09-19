@@ -71,25 +71,25 @@ export function Hero() {
           </motion.div>
 
           {/* Heading (H1) */}
-          <motion.div variants={itemVariants} className="w-full flex flex-col mb-4">
-            <h1 className="text-5xl md:text-7xl lg:text-[80px] font-bold tracking-tight text-foreground leading-[1.1]">
+          <motion.div variants={itemVariants} className="w-full flex flex-col mb-4 min-w-0">
+            <h1 className="text-5xl md:text-7xl lg:text-[80px] font-bold tracking-tight text-foreground leading-[1.1] text-balance wrap-break-word w-full">
               Hi, I'm Hanif.
             </h1>
           </motion.div>
 
           {/* Subtitle / Role */}
-          <motion.div variants={itemVariants} className="mb-6">
-            <p className="text-[18px] md:text-[20px] text-foreground-secondary font-medium tracking-wide">
+          <motion.div variants={itemVariants} className="mb-6 w-full min-w-0">
+            <p className="text-[18px] md:text-[20px] text-foreground-secondary font-medium tracking-wide text-balance wrap-break-word w-full">
               Computer Engineering + Software Developer
             </p>
           </motion.div>
 
           {/* Rotating Text Line */}
-          <motion.div variants={itemVariants} className="w-full mb-8 flex flex-row items-center gap-2">
-            <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground">
+          <motion.div variants={itemVariants} className="w-full mb-8 flex flex-col sm:flex-row sm:items-center sm:flex-wrap gap-1 sm:gap-2 min-w-0">
+            <span className="text-2xl md:text-3xl lg:text-4xl font-semibold text-foreground wrap-break-word w-full sm:w-auto">
               Saya membangun 
             </span>
-            <div className="flex-1">
+            <div className="w-full sm:flex-1 min-w-0">
               <RotatingText />
             </div>
           </motion.div>

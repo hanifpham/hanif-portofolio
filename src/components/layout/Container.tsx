@@ -8,9 +8,10 @@ interface ContainerProps {
 }
 
 export function Container({ children, className, as: Component = "div" }: ContainerProps) {
+  const Comp = Component as any;
   return (
-    <Component className={cn("mx-auto w-full max-w-300 px-6 md:px-12", className)}>
+    <Comp className={cn("mx-auto w-full max-w-300 px-6 md:px-12", className)}>
       {children}
-    </Component>
+    </Comp>
   )
 }
