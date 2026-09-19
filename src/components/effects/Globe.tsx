@@ -5,61 +5,18 @@ import * as THREE from "three";
 import { useReducedMotion } from "motion/react";
 
 function GlobeSphere() {
-  const texture = useTexture("/images/earth-specular.jpg");
-
-  const shaderArgs = useMemo(() => ({
-    uniforms: {
-      tDiffuse: { value: texture },
-      colorOcean: { value: new THREE.Color("#020617") }, 
-      colorLand: { value: new THREE.Color("#2a324b") }, 
-    },
-    vertexShader: `
-      varying vec2 vUv;
-      varying vec3 vNormal;
-      void main() {
-        vUv = uv;
-        vNormal = normalize(normalMatrix * normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-      }
-    `,
-    fragmentShader: `
-      uniform sampler2D tDiffuse;
-      uniform vec3 colorOcean;
-      uniform vec3 colorLand;
-      varying vec2 vUv;
-      varying vec3 vNormal;
-      void main() {
-        vec4 texel = texture2D(tDiffuse, vUv);
-        // In the specular map, ocean is white (1.0), land is black (0.0)
-        vec3 baseColor = mix(colorLand, colorOcean, texel.r); 
-        
-        // Directional Light 1 (Cool Violet)
-        vec3 lightDir1 = normalize(vec3(5.0, 3.0, 5.0));
-        float diff1 = max(dot(vNormal, lightDir1), 0.0);
-        
-        // Directional Light 2 (Soft Blue)
-        vec3 lightDir2 = normalize(vec3(-5.0, 3.0, -5.0));
-        float diff2 = max(dot(vNormal, lightDir2), 0.0);
-        
-        vec3 light1Color = vec3(0.54, 0.36, 0.96); 
-        vec3 light2Color = vec3(0.23, 0.51, 0.96); 
-        
-        vec3 lighting = (light1Color * diff1 * 1.5) + (light2Color * diff2 * 0.8) + vec3(0.2); // ambient
-        
-        vec3 finalColor = baseColor * lighting;
-        gl_FragColor = vec4(finalColor, 1.0);
-      }
-    `
-  }), [texture]);
+  const colorMap = useTexture("/images/earth-map.jpg");
+  colorMap.colorSpace = THREE.SRGBColorSpace;
 
   return (
-    <group>
-      {/* Solid Globe */}
-      <mesh>
-        <sphereGeometry args={[1, 64, 64]} />
-        <shaderMaterial args={[shaderArgs]} />
-      </mesh>
-    </group>
+    <mesh>
+      <sphereGeometry args={[1, 64, 64]} />
+      <meshStandardMaterial 
+        map={colorMap} 
+        roughness={0.7}
+        color="#a1a1aa" // Mutes the colors slightly for a dark futuristic look
+      />
+    </mesh>
   );
 }
 
@@ -119,9 +76,10 @@ function CloudLayer() {
       <meshStandardMaterial 
         map={cloudTexture} 
         transparent 
-        opacity={0.4} 
+        opacity={0.6} 
         blending={THREE.AdditiveBlending}
         depthWrite={false}
+        color="#cbd5e1"
       />
     </mesh>
   );
@@ -161,10 +119,13 @@ function InteractiveGlobe() {
 export function Globe() {
   return (
     <div 
-      className="w-56 sm:w-64 md:w-80 lg:w-[440px] xl:w-[480px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
+      className="w-64 sm:w-72 md:w-96 lg:w-[500px] xl:w-[600px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
       <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
+        <ambientLight intensity={0.15} />
+        <directionalLight position={[5, 3, 5]} intensity={1.5} color="#f8fafc" />
+        <directionalLight position={[-5, 3, -5]} intensity={0.5} color="#8b5cf6" />
         <Suspense fallback={null}>
           <InteractiveGlobe />
         </Suspense>
