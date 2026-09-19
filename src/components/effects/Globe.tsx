@@ -81,7 +81,8 @@ function AtmosphereGlow() {
       uniform vec3 color2;
       varying vec3 vNormal;
       void main() {
-        float intensity = pow(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 3.0) * 0.5;
+        // Use max to prevent negative values in pow()
+        float intensity = pow(max(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 0.0), 3.0) * 0.5;
         // Mix colors based on Y normal for a subtle gradient glow
         vec3 glowColor = mix(color1, color2, vNormal.y * 0.5 + 0.5);
         gl_FragColor = vec4(glowColor, 1.0) * intensity;
@@ -137,7 +138,7 @@ export function Globe() {
       className="w-65 sm:w-80 md:w-95 lg:w-115 aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
-      <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
+      <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
         <Suspense fallback={null}>
           <InteractiveGlobe />
         </Suspense>
