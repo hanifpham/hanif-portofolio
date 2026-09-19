@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, FolderKanban, User, FileText, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS = [
-  { name: "Home", path: "/" },
-  { name: "Projects", path: "/projects" },
-  { name: "About", path: "/about" },
-  { name: "Resume", path: "/resume" },
+  { name: "Home", path: "/", icon: Home },
+  { name: "Projects", path: "/projects", icon: FolderKanban },
+  { name: "About", path: "/about", icon: User },
+  { name: "Resume", path: "/resume", icon: FileText },
 ];
 
 export function Navbar() {
@@ -120,7 +120,7 @@ export function Navbar() {
 
           {/* Mobile Navigation Toggle */}
           <button
-            className="md:hidden text-foreground-secondary hover:text-foreground p-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue"
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/3 border border-white/8 text-foreground-secondary hover:text-foreground hover:bg-white/8 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue"
             aria-label="Toggle mobile menu"
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
@@ -136,38 +136,85 @@ export function Navbar() {
         {mobileMenuOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center pt-24 pb-12 px-6 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-40 bg-surface/82 backdrop-blur-[20px] flex flex-col px-6 pt-28 pb-12 md:hidden overflow-y-auto"
           >
-            <nav className="flex flex-col items-center gap-6 w-full max-w-sm">
-              {NAV_LINKS.map((link) => {
-                const isActive = location.pathname === link.path;
+            {/* Subtle Aurora Ambient Glow inside menu */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-blue/10 rounded-full blur-[80px] pointer-events-none" />
+
+            <nav className="flex flex-col gap-3 w-full relative z-10 mt-4">
+              {NAV_LINKS.map((link, i) => {
+                const isActive = link.path === "/" 
+                  ? location.pathname === "/" 
+                  : location.pathname.startsWith(link.path);
+                const Icon = link.icon;
+                
                 return (
-                  <Link
+                  <motion.div
                     key={link.name}
-                    to={link.path}
-                    onClick={() => {
-                      if (isActive) {
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }
-                      setMobileMenuOpen(false);
-                    }}
-                    className={cn(
-                      "text-2xl font-semibold tracking-tight transition-colors w-full text-center py-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue",
-                      isActive
-                        ? "text-accent-blue bg-surface"
-                        : "text-foreground-secondary hover:text-foreground hover:bg-surface/50",
-                    )}
-                    aria-current={isActive ? "page" : undefined}
+                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                    transition={{ duration: 0.3, delay: i * 0.06, ease: "easeOut" }}
                   >
-                    {link.name}
-                  </Link>
+                    <Link
+                      to={link.path}
+                      onClick={() => {
+                        if (isActive) {
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }
+                        setMobileMenuOpen(false);
+                      }}
+                      className={cn(
+                        "group flex items-center justify-between w-full p-2 pr-5 rounded-2xl border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-blue",
+                        isActive
+                          ? "bg-white/8 border-accent-blue/20"
+                          : "bg-white/2 border-white/6 hover:bg-white/5"
+                      )}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className={cn(
+                          "flex items-center justify-center w-12 h-12 rounded-xl transition-transform duration-300 group-active:scale-95",
+                          isActive ? "bg-linear-to-br from-accent-violet/20 to-accent-blue/20 text-accent-blue" : "bg-white/5 text-foreground-secondary"
+                        )}>
+                          <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                        </div>
+                        <span className={cn(
+                          "text-lg tracking-wide transition-colors",
+                          isActive ? "font-semibold text-foreground" : "font-medium text-foreground-secondary group-hover:text-foreground"
+                        )}>
+                          {link.name}
+                        </span>
+                      </div>
+                      
+                      {/* Active State / Playful Accent */}
+                      {isActive ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-1.5 h-1.5 rounded-full bg-linear-to-r from-accent-violet to-accent-blue shadow-[0_0_8px_rgba(91,140,255,0.8)]" />
+                        </div>
+                      ) : (
+                        <ArrowRight size={18} className="text-white/20 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
+                      )}
+                    </Link>
+                  </motion.div>
                 );
               })}
             </nav>
+            
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="mt-auto pt-12 text-center relative z-10"
+            >
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/30">
+                Build · Create · Explore
+              </span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

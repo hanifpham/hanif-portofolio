@@ -124,7 +124,7 @@ function InteractiveGlobe() {
 export function Globe() {
   return (
     <div 
-      className="w-72 sm:w-80 md:w-[440px] lg:w-[560px] xl:w-[680px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
+      className="w-72 sm:w-80 md:w-110 lg:w-140 xl:w-170 aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
       <Canvas camera={{ position: [0, 0, 3.8], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
