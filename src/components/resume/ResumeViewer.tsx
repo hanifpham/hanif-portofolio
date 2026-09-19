@@ -49,7 +49,7 @@ export function ResumeViewer() {
                   Resume Preview
                 </p>
 
-                <p className="text-foreground-secondary mb-8 text-sm max-w-[260px] leading-relaxed">
+                <p className="text-foreground-secondary mb-8 text-sm max-w-65 leading-relaxed">
                   Curriculum vitae dan pengalaman profesional saya.
                 </p>
 
