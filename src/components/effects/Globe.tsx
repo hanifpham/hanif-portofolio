@@ -13,8 +13,9 @@ function GlobeSphere() {
       <sphereGeometry args={[1, 64, 64]} />
       <meshStandardMaterial 
         map={colorMap} 
-        roughness={0.7}
-        color="#a1a1aa" // Mutes the colors slightly for a dark futuristic look
+        color="#ffffff"
+        roughness={0.85}
+        metalness={0}
       />
     </mesh>
   );
@@ -39,7 +40,7 @@ function AtmosphereGlow() {
       varying vec3 vNormal;
       void main() {
         // Use max to prevent negative values in pow()
-        float intensity = pow(max(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 0.0), 3.0) * 0.5;
+        float intensity = pow(max(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 0.0), 3.0) * 0.18;
         // Mix colors based on Y normal for a subtle gradient glow
         vec3 glowColor = mix(color1, color2, vNormal.y * 0.5 + 0.5);
         gl_FragColor = vec4(glowColor, 1.0) * intensity;
@@ -64,9 +65,11 @@ function CloudLayer() {
   const cloudRef = useRef<THREE.Mesh>(null);
   const shouldReduceMotion = useReducedMotion();
   
+  cloudTexture.colorSpace = THREE.SRGBColorSpace;
+
   useFrame((_, delta) => {
     if (cloudRef.current && !shouldReduceMotion) {
-      cloudRef.current.rotation.y += delta * 0.05;
+      cloudRef.current.rotation.y += delta * 0.025;
     }
   });
 
@@ -76,10 +79,12 @@ function CloudLayer() {
       <meshStandardMaterial 
         map={cloudTexture} 
         transparent 
-        opacity={0.6} 
-        blending={THREE.AdditiveBlending}
+        opacity={0.38} 
+        blending={THREE.NormalBlending}
         depthWrite={false}
-        color="#cbd5e1"
+        color="#ffffff"
+        roughness={1}
+        metalness={0}
       />
     </mesh>
   );
@@ -119,13 +124,14 @@ function InteractiveGlobe() {
 export function Globe() {
   return (
     <div 
-      className="w-64 sm:w-72 md:w-96 lg:w-[500px] xl:w-[600px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
+      className="w-72 sm:w-80 md:w-[440px] lg:w-[560px] xl:w-[680px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
-      <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
-        <ambientLight intensity={0.15} />
-        <directionalLight position={[5, 3, 5]} intensity={1.5} color="#f8fafc" />
-        <directionalLight position={[-5, 3, -5]} intensity={0.5} color="#8b5cf6" />
+      <Canvas camera={{ position: [0, 0, 3.8], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
+        <ambientLight intensity={0.35} />
+        <hemisphereLight args={["#dbeafe", "#020617", 0.35]} />
+        <directionalLight position={[5, 3, 5]} intensity={2.0} color="#ffffff" />
+        <directionalLight position={[-4, 2, -4]} intensity={0.45} color="#8b5cf6" />
         <Suspense fallback={null}>
           <InteractiveGlobe />
         </Suspense>
