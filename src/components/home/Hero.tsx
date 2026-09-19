@@ -47,7 +47,7 @@ export function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex-1 flex flex-col items-start w-full lg:w-[60%] z-10"
+          className="flex-1 flex flex-col items-start w-full lg:w-[60%] z-10 order-2 lg:order-1"
         >
           {/* Social Icons */}
           <motion.div variants={itemVariants} className="flex gap-4 mb-8">
@@ -121,7 +121,7 @@ export function Hero() {
         </motion.div>
 
         {/* RIGHT COLUMN: 3D Globe */}
-        <div className="flex-1 w-full lg:w-[40%] relative flex items-center justify-center pointer-events-auto">
+        <div className="flex-1 w-full lg:w-[40%] relative flex items-center justify-center pointer-events-auto order-1 lg:order-2 mb-4 lg:mb-0">
           <Globe />
         </div>
       </Container>

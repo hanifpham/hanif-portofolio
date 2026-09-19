@@ -10,8 +10,8 @@ function GlobeSphere() {
   const shaderArgs = useMemo(() => ({
     uniforms: {
       tDiffuse: { value: texture },
-      colorOcean: { value: new THREE.Color("#030712") }, 
-      colorLand: { value: new THREE.Color("#2e3192") }, 
+      colorOcean: { value: new THREE.Color("#020617") }, 
+      colorLand: { value: new THREE.Color("#2a324b") }, 
     },
     vertexShader: `
       varying vec2 vUv;
@@ -102,6 +102,31 @@ function AtmosphereGlow() {
   );
 }
 
+function CloudLayer() {
+  const cloudTexture = useTexture("/images/earth-clouds.png");
+  const cloudRef = useRef<THREE.Mesh>(null);
+  const shouldReduceMotion = useReducedMotion();
+  
+  useFrame((_, delta) => {
+    if (cloudRef.current && !shouldReduceMotion) {
+      cloudRef.current.rotation.y += delta * 0.05;
+    }
+  });
+
+  return (
+    <mesh ref={cloudRef}>
+      <sphereGeometry args={[1.015, 64, 64]} />
+      <meshStandardMaterial 
+        map={cloudTexture} 
+        transparent 
+        opacity={0.4} 
+        blending={THREE.AdditiveBlending}
+        depthWrite={false}
+      />
+    </mesh>
+  );
+}
+
 function InteractiveGlobe() {
   const groupRef = useRef<THREE.Group>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -127,6 +152,7 @@ function InteractiveGlobe() {
   return (
     <group ref={groupRef}>
       <GlobeSphere />
+      <CloudLayer />
       <AtmosphereGlow />
     </group>
   );
@@ -135,7 +161,7 @@ function InteractiveGlobe() {
 export function Globe() {
   return (
     <div 
-      className="w-65 sm:w-80 md:w-95 lg:w-115 aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
+      className="w-56 sm:w-64 md:w-80 lg:w-[440px] xl:w-[480px] aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
       <Canvas camera={{ position: [0, 0, 3.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
