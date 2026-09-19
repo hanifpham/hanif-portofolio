@@ -10,13 +10,15 @@ function GlobeSphere() {
   const shaderArgs = useMemo(() => ({
     uniforms: {
       tDiffuse: { value: texture },
-      colorOcean: { value: new THREE.Color("#060b19") }, 
-      colorLand: { value: new THREE.Color("#1e3a8a") }, 
+      colorOcean: { value: new THREE.Color("#030712") }, 
+      colorLand: { value: new THREE.Color("#2e3192") }, 
     },
     vertexShader: `
       varying vec2 vUv;
+      varying vec3 vNormal;
       void main() {
         vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
     `,
@@ -25,10 +27,26 @@ function GlobeSphere() {
       uniform vec3 colorOcean;
       uniform vec3 colorLand;
       varying vec2 vUv;
+      varying vec3 vNormal;
       void main() {
         vec4 texel = texture2D(tDiffuse, vUv);
         // In the specular map, ocean is white (1.0), land is black (0.0)
-        vec3 finalColor = mix(colorLand, colorOcean, texel.r); 
+        vec3 baseColor = mix(colorLand, colorOcean, texel.r); 
+        
+        // Directional Light 1 (Cool Violet)
+        vec3 lightDir1 = normalize(vec3(5.0, 3.0, 5.0));
+        float diff1 = max(dot(vNormal, lightDir1), 0.0);
+        
+        // Directional Light 2 (Soft Blue)
+        vec3 lightDir2 = normalize(vec3(-5.0, 3.0, -5.0));
+        float diff2 = max(dot(vNormal, lightDir2), 0.0);
+        
+        vec3 light1Color = vec3(0.54, 0.36, 0.96); 
+        vec3 light2Color = vec3(0.23, 0.51, 0.96); 
+        
+        vec3 lighting = (light1Color * diff1 * 1.5) + (light2Color * diff2 * 0.8) + vec3(0.2); // ambient
+        
+        vec3 finalColor = baseColor * lighting;
         gl_FragColor = vec4(finalColor, 1.0);
       }
     `
@@ -40,12 +58,6 @@ function GlobeSphere() {
       <mesh>
         <sphereGeometry args={[1, 64, 64]} />
         <shaderMaterial args={[shaderArgs]} />
-      </mesh>
-      
-      {/* Thin Latitude/Longitude Grid Lines */}
-      <mesh>
-        <sphereGeometry args={[1.005, 32, 16]} />
-        <meshBasicMaterial color="#3b82f6" wireframe transparent opacity={0.15} />
       </mesh>
     </group>
   );
@@ -69,7 +81,7 @@ function AtmosphereGlow() {
       uniform vec3 color2;
       varying vec3 vNormal;
       void main() {
-        float intensity = pow(0.65 - dot(vNormal, vec3(0, 0, 1.0)), 4.0);
+        float intensity = pow(0.6 - dot(vNormal, vec3(0, 0, 1.0)), 3.0) * 0.5;
         // Mix colors based on Y normal for a subtle gradient glow
         vec3 glowColor = mix(color1, color2, vNormal.y * 0.5 + 0.5);
         gl_FragColor = vec4(glowColor, 1.0) * intensity;
@@ -125,8 +137,7 @@ export function Globe() {
       className="w-65 sm:w-80 md:w-95 lg:w-115 aspect-square relative flex items-center justify-center mx-auto lg:ml-auto"
       aria-hidden="true"
     >
-      <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} dpr={[1, 1.5]}>
-        <ambientLight intensity={0.5} />
+      <Canvas camera={{ position: [0, 0, 2.5], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true, antialias: true }}>
         <Suspense fallback={null}>
           <InteractiveGlobe />
         </Suspense>
