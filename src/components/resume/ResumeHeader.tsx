@@ -27,7 +27,7 @@ export function ResumeHeader() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto shrink-0">
+          <div className="hidden md:flex flex-col sm:flex-row gap-4 w-full sm:w-auto shrink-0">
             <a 
               href="/resume.pdf" 
               target="_blank" 
